@@ -1,0 +1,31 @@
+package com.tang.guli.security.filter;
+
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * @Classname OptionsRequestFilter
+ * @Description [ OPTIONS请求配置 ]
+ * @Author Tang
+ * @Date 2020/4/5 23:59
+ * @Created by ASUS
+ */
+public class OptionsRequestFilter extends OncePerRequestFilter {
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        if(request.getMethod().equals("OPTIONS")) {
+            response.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,HEAD");
+            response.setHeader("Access-Control-Allow-Headers", response.getHeader("Access-Control-Request-Headers"));
+            return;
+        }
+        filterChain.doFilter(request, response);
+    }
+
+}
